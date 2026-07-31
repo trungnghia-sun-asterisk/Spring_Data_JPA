@@ -86,3 +86,5 @@ Test profile dùng H2 in-memory; runtime vẫn dùng MySQL.
 ## Notes
 
 Không cascade delete từ Author/Category xuống Book. Nếu còn sách tham chiếu, API trả `409 Conflict` để tránh mất dữ liệu.
+
+Test commit identity

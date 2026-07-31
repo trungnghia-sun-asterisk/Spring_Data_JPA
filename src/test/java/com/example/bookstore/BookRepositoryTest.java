@@ -1,0 +1,5 @@
+package com.example.bookstore;
+import com.example.bookstore.entity.*; import com.example.bookstore.repository.*; import org.junit.jupiter.api.Test; import org.springframework.beans.factory.annotation.Autowired; import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest; import org.springframework.data.domain.*; import java.math.BigDecimal; import static org.assertj.core.api.Assertions.assertThat;
+@DataJpaTest class BookRepositoryTest { @Autowired BookRepository books; @Autowired AuthorRepository authors; @Autowired CategoryRepository categories;
+ @Test void searchFindsBookByAuthorName(){Author a=authors.save(new Author("Craig Walls","craig@test.com",null));Category c=categories.save(new Category("Programming",null));books.save(new Book("Spring in Action","isbn-1",BigDecimal.TEN,2,null,a,c));Page<Book> result=books.searchByTitleOrAuthor("craig",PageRequest.of(0,10));assertThat(result.getContent()).hasSize(1);assertThat(result.getContent().getFirst().getTitle()).isEqualTo("Spring in Action");}
+}

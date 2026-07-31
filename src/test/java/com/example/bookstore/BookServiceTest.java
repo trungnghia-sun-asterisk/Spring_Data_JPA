@@ -1,0 +1,5 @@
+package com.example.bookstore;
+import com.example.bookstore.dto.*; import com.example.bookstore.entity.*; import com.example.bookstore.repository.*; import com.example.bookstore.service.BookService; import org.junit.jupiter.api.Test; import org.junit.jupiter.api.extension.ExtendWith; import org.mockito.InjectMocks; import org.mockito.Mock; import org.mockito.junit.jupiter.MockitoExtension; import java.math.BigDecimal; import static org.assertj.core.api.Assertions.assertThatThrownBy; import static org.mockito.Mockito.*;
+@ExtendWith(MockitoExtension.class) class BookServiceTest { @Mock BookRepository books; @Mock AuthorRepository authors; @Mock CategoryRepository categories; @InjectMocks BookService service;
+ @Test void rejectsDuplicateIsbn(){when(books.existsByIsbnIgnoreCase("isbn")).thenReturn(true);BookRequest r=new BookRequest("Title","isbn",BigDecimal.ONE,0,null,1L,1L);assertThatThrownBy(()->service.create(r)).hasMessage("Book with ISBN 'isbn' already exists");verify(books,never()).save(any());}
+}

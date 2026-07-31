@@ -1,0 +1,3 @@
+package com.example.bookstore.dto;
+import com.example.bookstore.entity.Book; import java.math.BigDecimal; import java.time.LocalDate;
+public record BookResponse(Long id,String title,String isbn,BigDecimal price,Integer stock,LocalDate publishedDate,SimpleRef author,SimpleRef category) { public record SimpleRef(Long id,String name){} public static BookResponse from(Book b){return new BookResponse(b.getId(),b.getTitle(),b.getIsbn(),b.getPrice(),b.getStock(),b.getPublishedDate(),new SimpleRef(b.getAuthor().getId(),b.getAuthor().getName()),new SimpleRef(b.getCategory().getId(),b.getCategory().getName()));} }
